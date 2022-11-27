@@ -32,6 +32,7 @@
 #include <sstream>
 #include <thread>
 #include <mutex>
+#include <sys/wait.h>
 #ifdef __APPLE__
 #include <mach-o/dyld.h>
 #endif
