@@ -3,7 +3,7 @@ all: jimulator kcmd
 
 
 kcmd: src/kcmdSrc/kcmd.cpp
-	g++ src/kcmdSrc/kcmd.cpp -o bin/kcmd `pkg-config --libs gtkmm-3.0` `pkg-config --cflags gtkmm-3.0` -std=c++17
+	g++ src/kcmdSrc/kcmd.cpp -o bin/kcmd -std=c++17
 
 # Compile the jimulator binary.
 jimulator: src/jimulatorSrc/jimulator.cpp
