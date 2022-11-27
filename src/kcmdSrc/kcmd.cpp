@@ -11,7 +11,6 @@
 #include "kcmd.h"
 #include <ctype.h>
 #include <fcntl.h>
-#include <glib.h>
 #include <math.h>
 #include <signal.h>
 #include <stdio.h>
@@ -1170,12 +1169,12 @@ inline void flushSourceFile() {
 
   while (old != NULL) {
     if (old->text != NULL) {
-      g_free(old->text);
+      free(old->text);
     }
 
     SourceFileLine* trash = old;
     old = old->next;
-    g_free(trash);
+    free(trash);
   }
 }
 
@@ -1376,7 +1375,7 @@ inline const bool readSourceFile(const char* const pathToKMD) {
           }
 
           buffer[textLength++] = '\0';  // textLength now length incl. '\0'
-          currentLine = g_new(SourceFileLine, 1);  // Create new record
+          currentLine = (SourceFileLine *)malloc(sizeof(SourceFileLine));  // Create new record
           currentLine->address = address;
 
           byteTotal = 0;  // Inefficient
@@ -1427,8 +1426,8 @@ inline const bool readSourceFile(const char* const pathToKMD) {
           }
 
           // Copy text to buffer
-          currentLine->text = g_new(char, textLength);
-          for (int j = 0; j < textLength; j++) {
+	  currentLine->text = (char *)malloc(textLength);
+	  for (int j = 0; j < textLength; j++) {
             currentLine->text[j] = buffer[j];
           }
 
