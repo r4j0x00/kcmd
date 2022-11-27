@@ -11,9 +11,7 @@
 #include "kcmd.h"
 #include <ctype.h>
 #include <fcntl.h>
-#include <gdk/gdkkeysyms.h>
 #include <glib.h>
-#include <gtk/gtk.h>
 #include <math.h>
 #include <signal.h>
 #include <stdio.h>
