@@ -307,7 +307,11 @@ void Jimulator::compileJimulator(std::string pathToBin,
 #ifdef __APPLE__
 	  execlp(pathToBin.append("/aasm.sh").c_str(), "aasm.sh", file_name, tmp+1, (char*)0);
 #else
-	  execlp(pathToBin.append("/aasm").c_str(), pathToBin.append("/aasm").c_str(), "-lk", pathToKMD, pathToS, (char *)0);
+	  const char *p = pathToBin.append("/aasm").c_str();
+	  char *cmd = (char*)malloc(0x500);
+	  sprintf(cmd, "%s -lk %s %s", p, pathToKMD, pathToS);
+	  system(cmd);
+	  exit(0);
 #endif
   }
   wait(NULL);
