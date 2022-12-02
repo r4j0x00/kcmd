@@ -1,10 +1,22 @@
 # Do all
-all: jimulator kcmd
+UNAME := $(shell uname)
 
+CC := gcc
+CXX := g++
+
+# Mac uses clang by default, which does not support nested functions and aasm build fails, so install gcc
+# brew install gcc
+ifeq ($(UNAME), Darwin)
+	CC = /opt/homebrew/opt/gcc/bin/gcc-12
+endif
+
+all: jimulator kcmd aasm
 
 kcmd: src/kcmdSrc/kcmd.cpp
-	g++ src/kcmdSrc/kcmd.cpp -o bin/kcmd -std=c++17 -pthread
+	$(CXX) $^ -o bin/kcmd -std=c++17 -pthread
 
-# Compile the jimulator binary.
 jimulator: src/jimulatorSrc/jimulator.cpp
-	g++ -w -o bin/jimulator src/jimulatorSrc/jimulator.cpp -Wall -Wextra -O3 -std=c++17
+	$(CXX) -w -o bin/jimulator $^ -Wall -Wextra -O3 -std=c++17
+
+aasm: src/aasmSrc/aasm.c
+	$(CC) $^ -w -o bin/aasm
